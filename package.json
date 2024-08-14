@@ -7,7 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:ecommerce-web-app": "node dist/ecommerce-web-app/server/server.mjs"
+    "serve:ssr:ecommerce-web-app": "node dist/ecommerce-web-app/server/server.mjs",
+    "lint": "eslint src/",
+    "format": "prettier --write \"src/**/*.{ts,js,html,css,scss,json,md}\""
   },
   "private": true,
   "dependencies": {
@@ -21,7 +23,11 @@
     "@angular/platform-server": "^17.3.0",
     "@angular/router": "^17.3.0",
     "@angular/ssr": "^17.3.2",
+    "@ng-bootstrap/ng-bootstrap": "^16.0.0",
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.2",
     "express": "^4.18.2",
+    "ngx-toastr": "^18.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
@@ -30,15 +36,29 @@
     "@angular-devkit/build-angular": "^17.3.2",
     "@angular/cli": "^17.3.2",
     "@angular/compiler-cli": "^17.3.0",
+    "@angular/localize": "^17.3.0",
+    "@eslint/js": "^9.9.0",
     "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
+    "@typescript-eslint/eslint-plugin": "^8.1.0",
+    "@typescript-eslint/parser": "^8.1.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsdoc": "^50.2.2",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.9.0",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.4.2"
+    "prettier": "^3.3.3",
+    "source-map-explorer": "^2.5.3",
+    "typescript": "~5.4.2",
+    "typescript-eslint": "^8.1.0"
   }
 }
