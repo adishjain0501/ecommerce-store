@@ -1,47 +1,81 @@
 <div class="container">
   <div class="row mt-4">
     <div class="col-md-6 offset-md-3">
+      <!-- {{user | json}} -->
       <div class="card rounded mb-3 shadow-sm">
         <div class="card-body">
           <div class="m-2 text-center">
             <img
-              style="width: 220px"
+              style="width: 200px"
               class="img-fluid"
               src="assets/images/login.png"
               alt="Login Image"
             />
           </div>
-          <h3 class="text-center">Signup here</h3>
-          <form action="#!" method="post">
+          <h4 class="text-center">Signup here</h4>
+          <form #signUpForm="ngForm" action="#!" (ngSubmit)="formSubmit($event,signUpForm)" method="post">
+            <div class="mb-3 alert alert-danger" [hidden]="signUpForm.valid || !signUpForm.touched">
+              Form is not valid!!
+            </div>
             <!-- name field  -->
             <div class="mb-3">
               <label for="name">Username</label>
-              <input
-                type="text"
+              <input required minlength=4 maxlength="50"
+                type="text" name="name"
                 class="form-control"
                 placeholder="Enter here"
-                id="name"
+                id="name" [(ngModel)]="user.name" 
+                #nameField="ngModel"
               />
+              <div *ngIf="nameField.touched && nameField.invalid">
+                <small class="form-text text-danger" *ngIf="nameField?.errors?.['required']">
+                                    Your userName is required.
+                </small>
+                <small class="form-text text-danger" *ngIf="nameField?.errors?.['minlength']">
+                                    Your userName is required to be at least 4 characters.
+                </small>
+              </div>
+              <!-- <span [hidden]="nameField.valid || !nameField.touched" class="text-danger mt-2 mx-2">Name is required !!!</span> -->
             </div>
             <!-- email field  -->
             <div class="mb-3">
               <label for="email">Email</label>
-              <input
+              <input required email
                 type="email"
                 class="form-control"
-                placeholder="Enter here"
-                id="email"
+                placeholder="Enter here" #emailField="ngModel"
+                id="email" [(ngModel)]="user.email" name="email"
               />
+              <div *ngIf="emailField.touched && emailField.invalid">
+                <small class="form-text text-danger" *ngIf="emailField?.errors?.['required']">
+                                    Your email is required.
+                </small>
+                <small class="form-text text-danger" *ngIf="emailField?.errors?.['email']">
+                                      Invalid email format.
+                </small>
+              </div>
             </div>
             <!-- password field  -->
             <div class="mb-3">
               <label for="password">New Password</label>
-              <input
-                type="password"
-                class="form-control"
-                placeholder="Enter here"
-                id="password"
+              <input required
+                type="password" minlength="8"
+                class="form-control" appPasswordValidator
+                placeholder="Enter here" #passwordField="ngModel"
+                id="password" [(ngModel)]="user.password" name="password"
               />
+              <div *ngIf="passwordField.touched && passwordField.invalid">
+                <small class="form-text text-danger" *ngIf="passwordField?.errors?.['required']">
+                                    New Password is required.
+                </small>
+                <small class="form-text text-danger" *ngIf="passwordField?.errors?.['minlength']">
+                            Password must be at least 8 characters long.
+                </small>
+                <small class="form-text text-danger" *ngIf="passwordField?.errors?.['passwordStrength']">
+                  Password must include uppercase, lowercase, number, and special character.
+                </small>
+              </div>
+              <!-- <span [hidden]="passwordField.valid || !passwordField.touched" class="text-danger mt-2 mx-2">New Password is required !!!</span> -->
             </div>
             <!-- gender button -->
             <div class="mb-3">
@@ -50,8 +84,8 @@
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="gender"
-                  id="gender_male"
+                  name="gender" [value]="'male'"
+                  id="gender_male" [(ngModel)]="user.gender"
                 />
                 <label class="form-check-label" for="gender_male"> Male </label>
               </div>
@@ -60,22 +94,24 @@
                   class="form-check-input"
                   type="radio"
                   name="gender"
-                  id="gender_female"
-                  checked
+                  id="gender_female" [value]="'female'"
+                  [(ngModel)]="user.gender"
                 />
                 <label class="form-check-label" for="gender_female">
                   Female
                 </label>
               </div>
             </div>
+            <!-- about field -->
             <div class="mb-3">
               <label for="about">Write about yourself</label>
-              <textarea
+              <textarea required
                 name="about"
                 id="about"
-                rows="5"
-                class="form-control"
+                rows="5" #aboutField="ngModel"
+                class="form-control" [(ngModel)]="user.about"
               ></textarea>
+              <span [hidden]="aboutField.valid || !aboutField.touched" class="text-danger mt-2 mx-2">About is required !!!</span>
             </div>
             <div class="mb-3 text-center">
               <button class="btn btn-success btn-sm">Register</button>
