@@ -1,45 +1,36 @@
-<div class="container">
-  <div class="row mt-4">
-    <div class="col-md-6 offset-md-3">
-      <div class="card rounded mb-3 shadow-sm">
-        <div class="card-body">
-          <div class="m-2 text-center">
-            <img
-              style="width: 220px"
-              class="img-fluid"
-              src="assets/images/login.png"
-              alt="Login Image"
-            />
+<div class="container mt-5">
+  <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <div class="header text-center mb-4">
+              <i class="bi bi-person-circle" style="font-size: 4rem; color: #0d6efd;"></i>
+                <h3 class="text-center mt-2">Login Here</h3>
+            </div>
+            <form (ngSubmit)="submitForm($event)">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email" 
+                    name="email" [(ngModel)]="loginData.email">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter your password" name="password" [(ngModel)]="loginData.password">
+                </div>
+                <div class="text-center">
+                  Don't have account ? <a href="/signup" [routerLink]="['/signup']">Click here</a>
+                </div>
+                <div class="text-center">
+                  Don't remember password ? <a href="/reset-password" [routerLink]="['/reset-password']">Click here</a>
+                </div>
+                <div class="text-center mt-2">
+                    <button type="submit" class="btn btn-primary btn-sm">Login</button>
+                    <button type="reset" class="btn btn-secondary btn-sm ms-2">Reset</button>
+                </div>
+            </form>
           </div>
-          <h3 class="text-center">Login here</h3>
-          <form action="#!" method="post">
-            <!-- email field  -->
-            <div class="mb-3">
-              <label for="email">Email</label>
-              <input
-                type="email"
-                class="form-control"
-                placeholder="Enter here"
-                id="email"
-              />
-            </div>
-            <!-- password field  -->
-            <div class="mb-3">
-              <label for="password">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                placeholder="Enter here"
-                id="password"
-              />
-            </div>
-            <div class="mb-3 text-center">
-              <button class="btn btn-success btn-sm">Login</button>
-              <button class="btn ms-2 btn-danger btn-sm">Reset</button>
-            </div>
-          </form>
         </div>
       </div>
-    </div>
   </div>
 </div>
+<!-- {{loginData | json}} -->

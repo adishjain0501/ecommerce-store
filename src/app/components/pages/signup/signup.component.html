@@ -1,10 +1,10 @@
 <div class="container">
-  <div class="row mt-4">
+  <div class="row mt-2">
     <div class="col-md-6 offset-md-3">
       <!-- {{user | json}} -->
-      <div class="card rounded mb-3 shadow-sm">
+      <div class="card rounded mb-2 shadow-sm">
         <div class="card-body">
-          <div class="m-2 text-center">
+          <div class="m-1 text-center">
             <img
               style="width: 200px"
               class="img-fluid"
@@ -12,13 +12,13 @@
               alt="Login Image"
             />
           </div>
-          <h4 class="text-center">Signup here</h4>
+          <h5 class="text-center">Signup here</h5>
           <form #signUpForm="ngForm" action="#!" (ngSubmit)="formSubmit($event,signUpForm)" method="post">
-            <div class="mb-3 alert alert-danger" [hidden]="signUpForm.valid || !signUpForm.touched">
+            <!-- <div class="mb-3 alert alert-danger" [hidden]="signUpForm.valid || !signUpForm.touched">
               Form is not valid!!
-            </div>
+            </div> -->
             <!-- name field  -->
-            <div class="mb-3">
+            <div class="mb-2">
               <label for="name">Username</label>
               <input required minlength=4 maxlength="50"
                 type="text" name="name"
@@ -38,7 +38,7 @@
               <!-- <span [hidden]="nameField.valid || !nameField.touched" class="text-danger mt-2 mx-2">Name is required !!!</span> -->
             </div>
             <!-- email field  -->
-            <div class="mb-3">
+            <div class="mb-2">
               <label for="email">Email</label>
               <input required email
                 type="email"
@@ -56,7 +56,7 @@
               </div>
             </div>
             <!-- password field  -->
-            <div class="mb-3">
+            <div class="mb-2">
               <label for="password">New Password</label>
               <input required
                 type="password" minlength="8"
@@ -78,7 +78,7 @@
               <!-- <span [hidden]="passwordField.valid || !passwordField.touched" class="text-danger mt-2 mx-2">New Password is required !!!</span> -->
             </div>
             <!-- gender button -->
-            <div class="mb-3">
+            <div class="mb-2">
               <label class="d-block">Gender</label>
               <div class="form-check form-check-inline">
                 <input
@@ -103,19 +103,27 @@
               </div>
             </div>
             <!-- about field -->
-            <div class="mb-3">
+            <div class="mb-2">
               <label for="about">Write about yourself</label>
               <textarea required
                 name="about"
                 id="about"
-                rows="5" #aboutField="ngModel"
+                rows="2" #aboutField="ngModel"
                 class="form-control" [(ngModel)]="user.about"
               ></textarea>
               <span [hidden]="aboutField.valid || !aboutField.touched" class="text-danger mt-2 mx-2">About is required !!!</span>
             </div>
+            <div class="text-center mb-3">
+              Already have account ? <a href="/signup" [routerLink]="['/login']">Click here</a>
+            </div>
             <div class="mb-3 text-center">
-              <button class="btn btn-success btn-sm">Register</button>
-              <button class="btn ms-2 btn-danger btn-sm">Reset</button>
+              <button [disabled]="loading" type="submit" class="btn btn-success btn-sm">
+                <span class="spinner-border spinner-border-sm" aria-hidden="true" 
+                *ngIf="loading"></span>
+                <span class="ms-2" *ngIf="loading">Please wait...</span>
+                <span *ngIf="!loading">Register</span>
+              </button>
+              <button type="button" (click)="resetForm(signUpForm)" class="btn ms-2 btn-danger btn-sm">Reset</button>
             </div>
           </form>
         </div>
