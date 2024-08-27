@@ -1,3 +1,5 @@
+import { Role } from "./role.model";
+
 export class User{
     
 
@@ -8,14 +10,15 @@ export class User{
     public about!:string;
     public imageName!:string;
     public userId!:string;
-    public roles!:Array<{roleId:string,roleName:string}>;
+    public roles:Role[] = [];
 
     constructor(private userName:string,private userEmail:string,private userPassword:string,
-        private userGender:string,private userAbout:string){
+        private userGender:string,private userAbout:string,private rolesArr:Role[]){
         this.name = userName;
         this.email = userEmail;
         this.password = userPassword;
         this.gender = userGender;
         this.about = userAbout;
+        this.roles = rolesArr;
     }
 }

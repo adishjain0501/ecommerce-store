@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
 })
 export class SignupComponent {
 
-  user = new User('','','','male','');
+  user = new User('','','','male','',[]);
   loading:boolean = false;
   constructor(private toastr:ToastrService,private userService:UserService){
 
@@ -35,7 +35,7 @@ export class SignupComponent {
           //success
           this.toastr.success("User is successfully registered !!!");
           console.log("success user",user);
-          this.user = new User('','','','male','');
+          this.user = new User('','','','male','',[]);
           signUpForm.resetForm({gender:this.user.gender});
           
         },
@@ -57,7 +57,7 @@ export class SignupComponent {
   }
 
   resetForm(signUpForm: NgForm){
-    this.user = new User('','','','male','');
+    this.user = new User('','','','male','',[]);
     signUpForm.resetForm({gender:this.user.gender});//key should be same as name attribute
   }
 }

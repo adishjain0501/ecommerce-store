@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { normalUserGuard } from './components/guards/normal-user.guard';
 
 export const routes: Routes = [
   {
@@ -48,6 +49,15 @@ export const routes: Routes = [
         (mod) => mod.CategoriesComponent,
       ),
     title: 'Categories: Electronic Store',
+  },
+  {
+    path: 'user',
+    loadComponent: () =>
+      import('./components/user/dashboard/dashboard.component').then(
+        (mod) => mod.DashboardComponent,
+      ),
+    title: 'User Dashboard',
+    canActivate: [normalUserGuard]
   },
   {
     path: '',
