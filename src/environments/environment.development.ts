@@ -3,5 +3,7 @@ export const environment = {
     production: false,
     baseUrl: 'http://localhost:9090',
     ROLE_NORMAL_ID: 'awgfasfwsdqtgasfwqgsdtg',
-    ROLE_NORMAL_NAME: 'ROLE_NORMAL'
+    ROLE_NORMAL_NAME: 'ROLE_NORMAL',
+    ROLE_ADMIN_ID: 'wetrsdfwetwfasfwdf',
+    ROLE_ADMIN_NAME: 'ROLE_ADMIN'
 };

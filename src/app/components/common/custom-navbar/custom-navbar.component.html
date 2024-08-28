@@ -57,7 +57,7 @@
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form> -->
-      <ul class="navbar-nav">
+      <ul class="navbar-nav" *ngIf="loginData.isLoggedIn == false || loginData.jwtToken == ''">
         <li class="nav-item">
           <a class="nav-link" href="/login" [routerLink]="['/login']">Login</a>
         </li>
@@ -65,6 +65,18 @@
           <a class="nav-link" href="/signup" [routerLink]="['/signup']"
             >SignUp</a
           >
+        </li>
+      </ul>
+      <ul class="navbar-nav" *ngIf="loginData.isLoggedIn === true && loginData.jwtToken !== ''">
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="isAdmin | async" style="cursor: pointer;" [routerLink]="['/admin']"> Admin Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="cursor: pointer;" [routerLink]="['/user']"> {{loginData.user?.name}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="cursor: pointer;" (click)="logout()"
+            >Logout</a>
         </li>
       </ul>
     </div>

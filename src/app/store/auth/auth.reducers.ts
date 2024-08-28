@@ -18,7 +18,7 @@ export const initialState:LoginResponse = {
 
 export const authReducer = createReducer(
     initialState,
-    
+    //invoked when setLoginData action is dispatched in case of successful login and if login details are found in local storage on app initialization i.e. on page refresh
     on(setLoginData, (oldState, {jwtToken,user}) => {
         console.log("inside reducer for setLoginData action");
         console.log("old state",oldState);
@@ -27,6 +27,7 @@ export const authReducer = createReducer(
         return retVal;
     }),
     on(removeLoginData, () => {
+        console.log("inside reducer for removeLoginData action");
         return {
             jwtToken: '',
             user: null,

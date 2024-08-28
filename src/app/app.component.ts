@@ -49,17 +49,9 @@ export class AppComponent {
   ngOnInit(){
     console.log('in app component listening to store change');
       this.updateLocalStorageWithLoginResponse();
-    
-    
-    // const loginData = this.authService.getLoginDataFromLocalStorage();
-    // console.log('in app component login response from local storage',loginData);
-    // if(loginData.isLoggedIn && loginData.user != null && loginData.jwtToken){
-    //   this.store.dispatch(setLoginData({ ...loginData }));
-    // }
-    
   }
 
-  // reading ngrx store value using selector
+  // reading ngrx store value using selector and updating to local storage whenever the login data in store is updated
   updateLocalStorageWithLoginResponse() {
     this.store.select(selectAuthDetails).subscribe({
         next:(details)=>{

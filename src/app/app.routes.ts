@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { normalUserGuard } from './components/guards/normal-user.guard';
+import { adminUserGuard } from './components/guards/admin-user.guard';
 
 export const routes: Routes = [
   {
@@ -58,6 +59,66 @@ export const routes: Routes = [
       ),
     title: 'User Dashboard',
     canActivate: [normalUserGuard]
+  },
+  {
+    path: 'admin',
+    loadComponent: () =>
+      import('./components/admin/admin-dashboard/admin-dashboard.component').then(
+        (mod) => mod.AdminDashboardComponent,
+      ),
+    title: 'Admin Dashboard',
+    canActivate: [adminUserGuard],
+    children:[
+      {
+        path: 'home',
+        loadComponent: () =>
+          import('./components/admin/home/home.component').then(
+            ({ HomeComponent: AdminHomeComponent }) =>  AdminHomeComponent,
+          )
+      },
+      {
+        path: 'add-product',
+        loadComponent: () =>
+          import('./components/admin/add-product/add-product.component').then(
+            (mod) =>  mod.AddProductComponent,
+          )
+      },
+      {
+        path: 'view-products',
+        loadComponent: () =>
+          import('./components/admin/view-products/view-products.component').then(
+            (mod) =>  mod.ViewProductsComponent
+          )
+      },
+      {
+        path: 'add-category',
+        loadComponent: () =>
+          import('./components/admin/add-categories/add-categories.component').then(
+            (mod) =>  mod.AddCategoriesComponent
+          )
+      },
+      {
+        path: 'view-category',
+        loadComponent: () =>
+          import('./components/admin/view-categories/view-categories.component').then(
+            (mod) =>  mod.ViewCategoriesComponent
+          )
+      },
+      {
+        path: 'orders',
+        loadComponent: () =>
+          import('./components/admin/view-orders/view-orders.component').then(
+            (mod) =>  mod.ViewOrdersComponent
+          )
+      },
+      {
+        path: 'users',
+        loadComponent: () =>
+          import('./components/admin/view-users/view-users.component').then(
+            (mod) =>  mod.ViewUsersComponent
+          )
+      }
+    ]
   },
   {
     path: '',

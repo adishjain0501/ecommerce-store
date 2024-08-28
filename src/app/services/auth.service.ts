@@ -25,7 +25,6 @@ export class AuthService {
 
   checkLoginAndNormalUser():Observable<boolean>{
     // login and normal user
-    
     this.authDetails$ = this.store.select(selectAuthDetails);
     
     return this.authDetails$.pipe(
@@ -50,8 +49,26 @@ export class AuthService {
     )
   }
 
-  checkLoginAndAdminUser(){
-
+  checkLoginAndAdminUser():Observable<boolean>{
+// login and normal user
+this.authDetails$ = this.store.select(selectAuthDetails);
+    
+return this.authDetails$.pipe(
+  tap((loginResponse: LoginResponse) => {
+    console.log('login response after getting login data from store',loginResponse);
+  }),
+  map((loginResp:LoginResponse) => {
+    // condition for checking login
+    const adminRoleObj = loginResp.user?.roles.find(role=>{
+      return role.roleName == environment.ROLE_ADMIN_NAME && role.roleId == environment.ROLE_ADMIN_ID;
+    });
+      console.log("in auth service checking for normal role: ",adminRoleObj);
+      if(loginResp.isLoggedIn && loginResp.jwtToken && loginResp.user != null && adminRoleObj != null){
+        return true;
+      }
+      return false;
+  })
+)
   }
 
   showWarning(message:string){
@@ -65,9 +82,8 @@ export class AuthService {
     }
   }
 
-    getLoginDataFromLocalStorage(){
- 
-    if(isPlatformBrowser(this.platformId)){// this function is used since using ssr
+    getLoginDataFromLocalStorage():LoginResponse{
+    if(isPlatformBrowser(this.platformId)){// this condition was used since I was using SSR earlier, now no need since switched back to CSR
     const dataString = localStorage.getItem('data');
     if(dataString && dataString !== 'undefined'){
       return JSON.parse(dataString);
@@ -82,11 +98,7 @@ export class AuthService {
     jwtToken: '',
     user: null,
     isLoggedIn: false
-};
-
   }
+ }
 
-  removeLoginDataFromLocalStorage(){
-    localStorage.removeItem('data');
-  }
 }
