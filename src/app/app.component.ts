@@ -1,12 +1,10 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CustomNavbarComponent } from './components/common/custom-navbar/custom-navbar.component';
 import { AuthService } from './services/auth.service';
-import {  setLoginData } from './store/auth/auth.actions';
 import { Store } from '@ngrx/store';
 import { LoginResponse } from './models/login-response.model';
-import { isPlatformBrowser } from '@angular/common';
 import { selectAuthDetails } from './store/auth/auth.selectors';
 
 @Component({

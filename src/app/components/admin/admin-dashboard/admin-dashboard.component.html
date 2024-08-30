@@ -1,11 +1,31 @@
-<p>admin-dashboard works!</p>
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            side-menu
-        </div>
-        <div class="col-md-9">
-            <router-outlet></router-outlet>
-        </div>
-    </div> 
+
+<div class="admin-layout">
+    <div class="sidebar d-flex flex-column justify-content-between bg-dark pt-3">
+        <!-- <h3 class="text-white px-2 text-center">Welcome</h3> -->
+        <ul class="nav flex-column">
+            <li class="nav-item" *ngFor="let m of adminMenus">
+                <a href="#" class="nav-link text-white" [routerLink]="[m.link]" routerLinkActive="active">
+                    <i-tabler [name]="m.icon"></i-tabler>
+                    <span class="ms-1">{{m.title}}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" (click)="logout()">
+                    <i-tabler [name]="'logout-2'"></i-tabler>
+                    <span class="ms-1">Logout</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav flex-column" style="margin-bottom: 50px;">
+            <li class="nav-item">
+                <a href="#" class="nav-link text-white">
+                    <i-tabler [name]="'user-check'"></i-tabler>
+                    <span class="ms-1">Feedback</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="content px-2 py-2">
+        <router-outlet></router-outlet>
+    </div>
 </div>

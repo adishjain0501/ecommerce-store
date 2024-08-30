@@ -3,3 +3,23 @@
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 @import 'ngx-toastr/toastr';
+
+// admin layout css
+.admin-layout .sidebar{
+    width: 220px;
+    height: 100vh;
+    position: fixed;
+}
+
+.admin-layout .content{
+    margin-left: 230px;
+}
+
+.admin-layout .sidebar .nav-link:hover{
+    background-color: #e2e2e2 !important;
+    color: #000 !important;
+}
+.admin-layout .sidebar .nav-link.active{
+    background-color: #e2e2e2 !important;
+    color: #000 !important;
+}

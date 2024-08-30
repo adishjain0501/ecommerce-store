@@ -74,49 +74,61 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./components/admin/home/home.component').then(
             ({ HomeComponent: AdminHomeComponent }) =>  AdminHomeComponent,
-          )
+          ),
+          title: 'Admin Dashboard'
       },
       {
         path: 'add-product',
         loadComponent: () =>
           import('./components/admin/add-product/add-product.component').then(
             (mod) =>  mod.AddProductComponent,
-          )
+          ),
+          title: 'Add Product'
       },
       {
         path: 'view-products',
         loadComponent: () =>
           import('./components/admin/view-products/view-products.component').then(
             (mod) =>  mod.ViewProductsComponent
-          )
+          ),
+          title: 'View Products' 
       },
       {
         path: 'add-category',
         loadComponent: () =>
           import('./components/admin/add-categories/add-categories.component').then(
             (mod) =>  mod.AddCategoriesComponent
-          )
+          ),
+          title: 'Add Category' 
       },
       {
         path: 'view-category',
         loadComponent: () =>
           import('./components/admin/view-categories/view-categories.component').then(
             (mod) =>  mod.ViewCategoriesComponent
-          )
+          ),
+          title: 'View Category' 
       },
       {
         path: 'orders',
         loadComponent: () =>
           import('./components/admin/view-orders/view-orders.component').then(
             (mod) =>  mod.ViewOrdersComponent
-          )
+          ),
+        title: 'View Orders'
       },
       {
         path: 'users',
         loadComponent: () =>
           import('./components/admin/view-users/view-users.component').then(
             (mod) =>  mod.ViewUsersComponent
-          )
+          ),
+          title: 'Users'
+      },
+      {
+        path: '',
+        redirectTo: 'home', // slash indicates absolute path starting from the root
+        pathMatch: 'full',
       }
     ]
   },
