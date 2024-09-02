@@ -1,1 +1,38 @@
-<p>add-categories works!</p>
+<div class="container mt-5">
+    <div class="card shadow-sm border">
+        <div class="card-body">
+
+       <div class="container text-center">
+            <i-tabler name="square-rounded-plus" class="custom-icon-size"></i-tabler>
+            <h3 class="mb-4 text-center">Add Category</h3>
+        </div> 
+    <form id="categoryForm" (ngSubmit)="formSubmitted($event)">
+      <!-- Title Field -->
+      <div class="form-group mb-2">
+        <label for="title">Category Title</label>
+        <input type="text" class="form-control" name="title" id="title" 
+        required [(ngModel)]="category.title" autofocus>
+      </div>
+
+      <!-- Description Field -->
+      <div class="form-group mb-2">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="3" required [(ngModel)]="category.description"></textarea>
+      </div>
+
+      <!-- Cover Image URL Field -->
+      <div class="form-group mb-2">
+        <label for="coverImageUrl">Cover Image URL</label>
+        <input type="text" class="form-control" id="coverImageUrl" name="coverImage" [(ngModel)]="category.coverImage">
+      </div>
+
+      <!-- Buttons -->
+       <div class="container text-center">
+        <button type="submit" class="btn btn-primary btn-sm">Add Category</button>
+        <button type="reset" (click)="resetAddCategoryForm()" class="btn btn-secondary ms-2 btn-sm">Reset Form</button>
+       </div>
+      
+    </form>
+  </div>
+</div>
+</div>
