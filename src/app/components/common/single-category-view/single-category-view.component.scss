@@ -1,0 +1,12 @@
+.cover-image{
+    object-fit: cover;
+    height: 250px;
+    width: 100%;
+}
+.card{
+    transition: 100ms all linear;
+}
+.card:hover{
+    background-color: #e2e2e2;
+    cursor: pointer;
+}
