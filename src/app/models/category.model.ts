@@ -3,3 +3,12 @@ export class Category{
         public categoryId:string
     ){}
 }
+
+export interface CategoryPaginatedResponse{
+     content:Category[];
+    lastPage:boolean;
+    pageNumber:number;
+    pageSize:number;
+    totalElements:number;
+    totalPages:number;
+}

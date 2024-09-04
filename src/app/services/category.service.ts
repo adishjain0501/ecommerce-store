@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Category } from "../models/category.model";
+import { Category, CategoryPaginatedResponse } from "../models/category.model";
 import { environment } from "../../environments/environment";
 import { Injectable } from "@angular/core";
 
@@ -11,5 +11,9 @@ export class CategoryService{
 
     createCategory(category:Category){
         return this.http.post<Category>(`${environment.baseUrl}/categories`,category);
+    }
+
+    getCategories(){
+        return this.http.get<CategoryPaginatedResponse>(`${environment.baseUrl}/categories?pageSize=${environment.MAX_PAGE_SIZE}`);
     }
 }
