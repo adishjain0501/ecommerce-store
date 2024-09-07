@@ -49,7 +49,7 @@ export class AppComponent {
       this.updateLocalStorageWithLoginResponse();
   }
 
-  // reading ngrx store value using selector and updating to local storage whenever the login data in store is updated
+  // reading ngrx store value using selector and updating to local storage whenever the login data is updated in the ngrx store 
   updateLocalStorageWithLoginResponse() {
     this.store.select(selectAuthDetails).subscribe({
         next:(details)=>{
