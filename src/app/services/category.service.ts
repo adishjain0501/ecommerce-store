@@ -16,4 +16,8 @@ export class CategoryService{
     getCategories(){
         return this.http.get<CategoryPaginatedResponse>(`${environment.baseUrl}/categories?pageSize=${environment.MAX_PAGE_SIZE}`);
     }
+
+    deleteCategory(categoryId?:string){
+        return this.http.delete(`${environment.baseUrl}/categories/${categoryId}`);
+    }
 }

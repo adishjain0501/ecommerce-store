@@ -69,7 +69,7 @@
       </ul>
       <ul class="navbar-nav" *ngIf="loginData.isLoggedIn === true && loginData.jwtToken !== ''">
         <li class="nav-item">
-          <a class="nav-link" *ngIf="isAdmin | async" style="cursor: pointer;" [routerLink]="['/admin']"> Admin Dashboard</a>
+          <a class="nav-link" *ngIf="isAdmin | async" style="cursor: pointer;" [routerLink]="['/admin/home']"> Admin Dashboard</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" style="cursor: pointer;" [routerLink]="['/user']"> {{loginData.user?.name}}</a>

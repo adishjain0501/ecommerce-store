@@ -1,8 +1,24 @@
-<!-- <div class="container mt-5"> -->
     <div class="row">
         <!-- Category Card -->
         <div class="col-md-4 mb-4" *ngFor="let c of categories">
-            <app-single-category-view [category]="c"></app-single-category-view>
+            <app-single-category-view (click)="open(content,c)" [category]="c"></app-single-category-view>
         </div>
     </div>
-<!-- </div> -->
+
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">{{selectedCategory?.title}}</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <div class="image-container">
+                <img [src]="selectedCategory?.coverImage" class="img-size" alt="{{selectedCategory?.title}}">
+            </div>
+           <p class="mt-2">{{selectedCategory?.description}}</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark">Update</button>
+            <button type="button" class="btn btn-outline-danger" (click)="deleteCategory()">Delete</button>
+            <button type="button" class="btn btn-outline-secondary" (click)="modal.close('Save click')">Close</button>
+        </div>
+    </ng-template>
