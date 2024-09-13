@@ -11,13 +11,49 @@
             <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
         </div>
         <div class="modal-body">
-            <div class="image-container">
-                <img [src]="selectedCategory?.coverImage" class="img-size" alt="{{selectedCategory?.title}}">
+            <!-- div to show details -->
+            <div class="view" *ngIf="!updateView">
+                <div class="image-container">
+                    <img [src]="selectedCategory?.coverImage" class="img-size" alt="{{selectedCategory?.title}}">
+                </div>
+                <p class="mt-2">{{selectedCategory?.description}}</p>
             </div>
-           <p class="mt-2">{{selectedCategory?.description}}</p>
+            <!-- div to update details -->
+             <div class="update" *ngIf="updateView">
+                <form id="categoryForm" >
+                    <!-- Title Field -->
+                    <div class="form-group mb-2">
+                      <label for="title" class="text-muted">Category Title</label>
+                      <input type="text" class="form-control" name="title" id="title" 
+                      required  autofocus [(ngModel)]="selectedCategory!.title">
+                    </div>
+              
+                    <!-- Description Field -->
+                    <div class="form-group mb-2">
+                      <label for="description" class="text-muted">Description</label>
+                      <textarea class="form-control" id="description" name="description" rows="3" required [(ngModel)]="selectedCategory!.description"></textarea>
+                    </div>
+              
+                    <!-- Cover Image URL Field -->
+                    <div class="form-group mb-2">
+                      <label for="coverImageUrl" class="text-muted">Cover Image URL</label>
+                      <div class="update-image-view text-center my-2">
+                        <img style="width:200px;height: auto;" [src]="selectedCategory!.coverImage" [alt]="selectedCategory!.title">
+                      </div>
+                      <input type="text" class="form-control" id="coverImageUrl" name="coverImage" [(ngModel)]="selectedCategory!.coverImage">
+                    </div>
+              
+                    <!-- Buttons -->
+                     <div class="row text-center px-3 mt-2">
+                      <button type="submit" class="btn btn-success btn-sm" (click)="updateCategoryDetails()">Save</button>
+                      
+                     </div>
+                    
+                  </form>
+             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark">Update</button>
+            <button type="button" class="btn btn-outline-dark" (click)="update()">Update</button>
             <button type="button" class="btn btn-outline-danger" (click)="deleteCategory()">Delete</button>
             <button type="button" class="btn btn-outline-secondary" (click)="modal.close('Save click')">Close</button>
         </div>

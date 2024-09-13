@@ -11,6 +11,7 @@ import { AuthService } from './services/auth.service';
 import { initializeAuthState } from './helper/auth-initializer';
 import { GlobalErrorHandler } from './error-handler/global-error-handler';
 import { JwtInterceptor } from './services/jwt-interceptor';
+import { categoryReducer } from './store/category/category.reducers';
 
 
 console.log('app config');
@@ -36,7 +37,9 @@ export const appConfig: ApplicationConfig = {
       multi: true
     },
     provideStore(),
-    provideState({name:'auth',reducer:authReducer}),
-    
+    provideState({
+      name:'auth',reducer:authReducer
+    }),
+    provideState({ name: 'cat', reducer: categoryReducer })
 ],
 };

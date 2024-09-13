@@ -20,4 +20,8 @@ export class CategoryService{
     deleteCategory(categoryId?:string){
         return this.http.delete(`${environment.baseUrl}/categories/${categoryId}`);
     }
+
+    updateCategory(category:Category){
+        return this.http.put<Category>(`${environment.baseUrl}/categories/${category?.categoryId}`,category);
+    }
 }

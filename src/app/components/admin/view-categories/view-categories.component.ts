@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { SingleCategoryViewComponent } from "../../common/single-category-view/single-category-view.component";
 import { CategoryService } from '../../../services/category.service';
@@ -7,17 +7,20 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-view-categories',
   standalone: true,
-  imports: [NgFor, SingleCategoryViewComponent,SweetAlert2Module],
+  imports: [NgFor, SingleCategoryViewComponent,SweetAlert2Module,FormsModule,NgIf],
   templateUrl: './view-categories.component.html',
   styleUrl: './view-categories.component.scss'
 })
 export class ViewCategoriesComponent implements OnInit{
   categories:Category[] = [];
   selectedCategory?:Category;
+  updateView = false;
   // categories = [
     //   {
     //     categoryId:'',
@@ -57,8 +60,19 @@ export class ViewCategoriesComponent implements OnInit{
   }
     
     open(content: TemplateRef<any>,category:Category) {
-      this.selectedCategory = category;
-      this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title',animation:true,backdrop:true });
+      this.selectedCategory = {...category};
+      this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title',animation:true,backdrop:true })
+      .result.then((res)=>{
+          console.log(res);
+      })
+      .catch((err)=>{
+          console.log(err);
+      })
+      .finally(()=>{
+          console.log("Modal close");
+          this.updateView = false;
+      })
+      ;
     }
 
     deleteCategory(){
@@ -95,10 +109,33 @@ export class ViewCategoriesComponent implements OnInit{
         })
          
         }
-      });
-
-        
+      });   
     }
 
+    update(){
+      this.updateView = true;
+    }
 
+    updateCategoryDetails(){
+      this.updateView = false;
+      this.categoryService.updateCategory(this.selectedCategory!).subscribe({
+        next:(result)=>{
+            console.log(result);
+            this.toastrService.success("Category Updated");
+            this.categories = this.categories.map(cat=>{
+              if(cat.categoryId === this.selectedCategory?.categoryId){
+                  cat.title = result.title;
+                  cat.description = result.description;
+                  cat.coverImage = result.coverImage;
+                  return cat;
+              }
+              return cat;
+            })
+        },
+        error:(err)=>{
+            console.log(err);
+            this.toastrService.error("Error in updating category");
+        }
+      })
+    }
 }

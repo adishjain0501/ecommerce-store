@@ -10,11 +10,6 @@ export const initialState:LoginResponse = {
     user: null,
   };
 
-// {
-//     jwtToken: '',
-//     user: null,
-//     isLoggedIn: false
-// };
 
 export const authReducer = createReducer(
     initialState,
