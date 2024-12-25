@@ -43,7 +43,8 @@
             ],
             "styles": [
               "node_modules/ngx-toastr/toastr.css",
-              "src/styles.scss"
+              "src/styles.scss",
+               "node_modules/quill/dist/quill.snow.css"
             ],
             "scripts": []
             

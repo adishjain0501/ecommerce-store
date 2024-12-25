@@ -4,15 +4,19 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'ngx-toastr/toastr';
 
+body{
+    background-color: #F0EFEF;
+}
 // admin layout css
 .admin-layout .sidebar{
-    width: 220px;
+    width: 250px;
     height: 100vh;
     position: fixed;
 }
 
 .admin-layout .content{
-    margin-left: 230px;
+    margin-left: 255px;
+    // border: 1px solid red;
 }
 
 .admin-layout .sidebar .nav-link:hover{
@@ -28,3 +32,27 @@
     height: 50px !important;
     width: 50px !important;
 }
+
+/* Tooltip styling */
+.ql-toolbar .ql-formats button[title] {
+    position: relative;
+  }
+  
+  .ql-toolbar .ql-formats button[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  
+  .image-container img{
+    max-height: 250px;
+    width: auto;
+  }

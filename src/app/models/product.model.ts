@@ -13,3 +13,12 @@ export class Product{
         public category:Category=new Category('','','','')
     ){}
 }
+
+export interface ProductsResponse{
+    lastPage:boolean;
+    pageNumber:number;
+    pageSize:number;
+    totalElements:number;
+    totalPages:number;
+    content:Product[];
+}
