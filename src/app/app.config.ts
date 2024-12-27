@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, ApplicationConfig, ErrorHandler } from '@angular/core';
+import { APP_INITIALIZER, ApplicationConfig, ErrorHandler, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -12,6 +12,7 @@ import { initializeAuthState } from './helper/auth-initializer';
 import { GlobalErrorHandler } from './error-handler/global-error-handler';
 import { JwtInterceptor } from './services/jwt-interceptor';
 import { categoryReducer } from './store/category/category.reducers';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 console.log('app config');
@@ -28,6 +29,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     provideToastr({ positionClass: 'toast-top-center', progressBar: true }),
+    importProvidersFrom(SweetAlert2Module.forRoot()),
     provideHttpClient(withInterceptorsFromDi(), withFetch()), //any interceptors provided in your application will automatically be used with HttpClients
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     {

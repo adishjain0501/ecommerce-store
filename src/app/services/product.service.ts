@@ -35,4 +35,20 @@ export class ProductService {
   getProductImageUrl(productId:string){
       return `${environment.baseUrl}/products/image/${productId}`;
   }
+
+  deleteProduct(productId:string){
+      return this.http.delete(`${environment.baseUrl}/products/${productId}`);
+  }
+
+  updateProduct(product:Product){
+      return this.http.put<Product>(`${environment.baseUrl}/products/${product.productId}`,product);
+  }
+
+  updateCategoryOfProduct(productId:string,categoryId:string){
+      return this.http.put<Product>(`${environment.baseUrl}/categories/${categoryId}/products/${productId}`,null);
+  }
+
+  searchProduct(query:string,pageNumber=0,pageSize=10,sortBy='title',sortDir='asc'){
+      return this.http.get<ProductsResponse>(`${environment.baseUrl}/products/search/${query}?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=${sortBy}&sortDir=${sortDir}`);
+  }
 }

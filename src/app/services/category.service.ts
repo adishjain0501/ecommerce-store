@@ -2,12 +2,13 @@ import { HttpClient } from "@angular/common/http";
 import { Category, CategoryPaginatedResponse } from "../models/category.model";
 import { environment } from "../../environments/environment";
 import { Injectable } from "@angular/core";
+import { Store } from "@ngrx/store";
 
 @Injectable({
     providedIn: 'root'
   })
 export class CategoryService{
-    constructor(private http:HttpClient){  }
+    constructor(private http:HttpClient,private categoryStore:Store<{cat:Category[]}>){  }
 
     createCategory(category:Category){
         return this.http.post<Category>(`${environment.baseUrl}/categories`,category);
@@ -23,5 +24,9 @@ export class CategoryService{
 
     updateCategory(category:Category){
         return this.http.put<Category>(`${environment.baseUrl}/categories/${category?.categoryId}`,category);
+    }
+
+    getCategoriesFromStore(){
+        return this.categoryStore.select('cat');
     }
 }
