@@ -12,6 +12,38 @@ export const routes: Routes = [
     title: 'Home: Electronic Store',
   },
   {
+    path: 'store',
+    loadComponent: () =>
+      import('./components/pages/store/store.component').then(
+        (mod) => mod.StoreComponent,
+      ),
+    title: 'All Products: Store',
+  },
+  {
+    path: 'product/:productId',
+    loadComponent: () =>
+      import('./components/pages/view-product/view-product.component').then(
+        (mod) => mod.ViewProductComponent,
+      ),
+    title: 'View Product',
+  },
+  {
+    path: 'store/:categoryId/:categoryTitle',
+    loadComponent: () =>
+      import('./components/pages/store-categories/store-categories.component').then(
+        (mod) => mod.StoreCategoriesComponent,
+      )
+  },
+  {
+    path: 'profile',
+    loadComponent: () =>
+      import('./components/pages/user-profile/user-profile.component').then(
+        (mod) => mod.UserProfileComponent,
+      ),
+    title: 'User Profile: Electronic Store',
+    canActivate: [normalUserGuard]
+  },
+  {
     path: 'about',
     loadComponent: () =>
       import('./components/pages/about/about.component').then(
@@ -110,6 +142,14 @@ export const routes: Routes = [
           title: 'View Category' 
       },
       {
+        path: 'feedback',
+        loadComponent: () =>
+          import('./components/common/feedback/feedback.component').then(
+            (mod) =>  mod.FeedbackComponent
+          ),
+          title: 'Feedback' 
+      },
+      {
         path: 'orders',
         loadComponent: () =>
           import('./components/admin/view-orders/view-orders.component').then(
@@ -123,7 +163,7 @@ export const routes: Routes = [
           import('./components/admin/view-users/view-users.component').then(
             (mod) =>  mod.ViewUsersComponent
           ),
-          title: 'Users'
+          title: 'All Users'
       },
       {
         path: '',

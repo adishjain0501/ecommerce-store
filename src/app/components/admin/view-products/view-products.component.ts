@@ -112,6 +112,23 @@ export class ViewProductsComponent implements OnInit{
       toggleUpdateView(content:any,product:Product){
         this.update= true;
         this.product = product;
+        this.categoryService.getCategoriesFromStore().subscribe({
+          next:categories=>{
+              if(categories.length > 0){
+                this.categories = categories;
+              }
+              else{
+                // load the data from server
+                this.categoryService.getCategories().subscribe({
+                  next:categoryResponse=>{
+                      this.categoryStore.dispatch(setCategoryData({categories:categoryResponse.content}));
+                      console.log("done");
+                  }
+                })
+              }
+          }
+      })
+    
         this.modalService.open(content, { 
           ariaLabelledBy: 'modal-basic-title',
           size: 'xl'

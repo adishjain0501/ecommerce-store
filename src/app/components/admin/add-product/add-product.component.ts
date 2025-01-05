@@ -83,7 +83,8 @@ export class AddProductComponent implements OnInit{
           return;
         }
         if(this.product.category.categoryId===''){
-          // add product without category
+          this.toastrService.error("Category needs to be selected!!");
+          return;
         }
         else{
           // add product with category
@@ -101,6 +102,7 @@ export class AddProductComponent implements OnInit{
                             previewImageUrl:'',
                             file:undefined
                         }
+                        this.productImageInput.nativeElement.value = '';
                     },
                     error: error=>{
                       console.log(error);

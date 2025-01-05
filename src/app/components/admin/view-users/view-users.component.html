@@ -1,1 +1,30 @@
-<p>view-users works!</p>
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="card">
+            <div class="card-body">
+                <h3>All Users ({{usersResponse?.totalElements}})</h3>
+                <div class="list-group" infiniteScroll [infiniteScrollDistance]="2"  [infiniteScrollThrottle]="200" (scrolled)="onScroll($event)" *ngIf="usersResponse">
+                    <div (click)="openUserModal(viewUserContent,user)" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" *ngFor="let user of usersResponse.content">
+                       <div>
+                        <p class="fw-bold mb-1">{{user.name}}</p>
+                        <p class="text-muted">{{user.email}}</p>
+                        <p class="text-muted"><span *ngFor="let role of user.roles">
+                            <span class="badge rounded-pill ms-2" [ngClass]="{'text-bg-primary': role.roleName=='ROLE_NORMAL','text-bg-success':role.roleName=='ROLE_ADMIN'}">{{role.roleName}}</span>
+                        </span></p>
+                       </div>
+                        <div class="button-container">
+                            <button class="btn btn-sm btn-success">
+                                View
+                            </button>
+                        </div>
+                    </div>
+                    <h3 class="my-3 text-center" *ngIf="loading">Loading...</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #viewUserContent let-modal>
+    <app-user-view [user]="user"></app-user-view>
+</ng-template>

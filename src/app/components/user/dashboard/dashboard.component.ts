@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LoginResponse } from '../../../models/login-response.model';
 import { Router } from '@angular/router';
-import { selectAuthDetails, selectIsLoggedIn, selectJwtToken, selectUser } from '../../../store/auth/auth.selectors';
-import { map, Observable, tap } from 'rxjs';
+import { selectUser } from '../../../store/auth/auth.selectors';
+import { Observable } from 'rxjs';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { User } from '../../../models/user.model';
 

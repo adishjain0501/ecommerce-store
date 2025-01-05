@@ -1,0 +1,13 @@
+<div class="list-group">
+    <a href="" [routerLink]="['/store']" class="list-group-item list-group-item-action">
+        <span class="fs-5">
+            <img class="cat-image mx-2" [src]="'https://images.unsplash.com/photo-1523275335684-37898b6baf30?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D'" alt="Product Image">
+            All Products</span>
+    </a>
+    <a href="" routerLinkActive="active" [routerLink]="['/store',cat.categoryId,cat.title]" *ngFor="let cat of categories" class="list-group-item list-group-item-action">
+       <span class="fs-5">
+        <img class="cat-image mx-2" [src]="cat.coverImage" alt="">
+         <span>{{cat.title}}</span>
+        </span>
+    </a>
+</div>

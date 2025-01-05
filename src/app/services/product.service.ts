@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Product, ProductsResponse } from '../models/product.model';
 import { environment } from '../../environments/environment';
+import { CategoryPaginatedResponse } from '../models/category.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  
 
   constructor(private http:HttpClient) { }
 
@@ -50,5 +52,13 @@ export class ProductService {
 
   searchProduct(query:string,pageNumber=0,pageSize=10,sortBy='title',sortDir='asc'){
       return this.http.get<ProductsResponse>(`${environment.baseUrl}/products/search/${query}?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=${sortBy}&sortDir=${sortDir}`);
+  }
+
+  getProductsOfCategory(categoryId:string,pageNumber=0,pageSize=10,sortBy='title',sortDir='asc'){
+    return this.http.get<ProductsResponse>(`${environment.baseUrl}/categories/${categoryId}/products?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=${sortBy}&sortDir=${sortDir}`);
+  }
+
+  getProduct(productId: string) {
+        return this.http.get<Product>(`${environment.baseUrl}/products/${productId}`);
   }
 }
