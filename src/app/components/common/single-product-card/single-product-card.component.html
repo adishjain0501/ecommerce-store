@@ -20,7 +20,7 @@
         <span class="ms-2 text-success">{{ product.discountedPrice | currency:'INR':'symbol'}}</span>
     </p>
     <button class="btn" 
-    [ngClass]="{'btn-primary': product.stock,'btn-danger':!product.stock}">{{product.stock ? 'Add to Cart':'Out of Stock'}}</button>
+    [ngClass]="{'btn-primary': product.stock,'btn-danger':!product.stock}" (click)="addToCartRequest(product)">{{product.stock ? 'Add to Cart':'Out of Stock'}}</button>
     <button [routerLink]="['/product',product.productId]" class="btn btn-warning my-2">View</button>
 </div>
 </div>

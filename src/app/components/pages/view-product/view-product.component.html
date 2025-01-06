@@ -1,1 +1,75 @@
-{{product | json}}
+<div class="container">
+    <div class="card" *ngIf="product">
+        <div class="card-body">
+            <h3>{{product.title}}</h3>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam beatae possimus optio aperiam debitis distinctio corrupti, nobis unde asperiores veniam aliquam nulla commodi ducimus quia labore, consectetur cupiditate ex suscipit?</p>
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="image-container text-center py-4">
+                        <img onerror="this.src='https://wbco.sa/storage/images/documents/_res/wrh/def_product.png'" [src]="productService.getProductImageUrl(product.productId)" alt="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            Title
+                                        </td>
+                                        <td class="fw-bold">
+                                            {{product.title}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Category
+                                        </td>
+                                        <td class="fw-bold">
+                                            {{product.category.title}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Stock
+                                        </td>
+                                        <td class="fw-bold">
+                                            <span class="badge" [ngClass]="{'text-bg-primary': product.stock,'text-bg-danger': !product.stock}">
+                                            {{product.stock ? 'In Stock' : 'Out Of Stock'}}
+                                        </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fs-2">
+                                            Price
+                                        </td>
+                                        <td class="fs-2">
+                                            <span class="text-decoration-line-through text-muted">{{product.price | currency:'INR':'symbol'}}</span>
+                                            <span class="fw-bold text-success ms-2">{{product.discountedPrice | currency:'INR':'symbol'}}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-center">
+                                            <button class="btn" (click)="addToCartRequest(product)"
+                                            [ngClass]="{'btn-primary': product.stock,'btn-danger':!product.stock}">{{product.stock ? 'Add to Cart':'Out of Stock'}}</button>
+                                            <button [routerLink]="['/store']" class="btn btn-secondary ms-2">Back to Store</button>
+                                        </td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+            </div>
+            <div class="my-3">
+                <p [innerHTML]="product.description"></p>
+                <div class="container text-center">
+                    <button (click)="addToCartRequest(product)" class="btn" [ngClass]="{'btn-primary': product.stock,'btn-danger':!product.stock}">{{product.stock ? 'Add to Cart':'Out of Stock'}}</button>
+                    <button [routerLink]="['/store']" class="btn btn-secondary ms-2">Back to Store</button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

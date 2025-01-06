@@ -24,8 +24,14 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./components/pages/view-product/view-product.component').then(
         (mod) => mod.ViewProductComponent,
-      ),
-    title: 'View Product',
+      )
+  },
+  {
+    path: 'cart',
+    loadComponent: () =>
+      import('./components/pages/cart/cart.component').then(
+        (mod) => mod.CartComponent,
+      )
   },
   {
     path: 'store/:categoryId/:categoryTitle',
