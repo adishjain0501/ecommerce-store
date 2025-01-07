@@ -7,6 +7,7 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { selectAuthDetails } from '../../../store/auth/auth.selectors';
 import { removeLoginData } from '../../../store/auth/auth.actions';
 import { Observable } from 'rxjs';
+import { Cart } from '../../../models/cart.model';
 
 @Component({
   selector: 'app-custom-navbar',
@@ -19,7 +20,8 @@ export class CustomNavbarComponent {
   collapse = true;
   loginData!:LoginResponse;
   isAdmin?:Observable<boolean>;
-  constructor(private store:Store<{auth:LoginResponse}>,private router:Router,private authService:AuthService){
+  cart?:Cart;
+  constructor(private store:Store<{auth:LoginResponse}>,private router:Router,private authService:AuthService,private cartStore:Store<{cart:Cart}>){
     this.store.select(selectAuthDetails).subscribe({
         next:(loginData)=>{
           this.loginData = loginData;
@@ -27,6 +29,11 @@ export class CustomNavbarComponent {
         }
       })
       this.isAdmin = this.authService.checkLoginAndAdminUser();
+      this.cartStore.select("cart").subscribe({
+        next:data=>{
+            this.cart = data;
+        }
+      })
   }
   toggle() {
     this.collapse = !this.collapse;

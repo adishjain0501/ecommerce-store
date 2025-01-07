@@ -6,6 +6,10 @@ import { AuthService } from './services/auth.service';
 import { Store } from '@ngrx/store';
 import { LoginResponse } from './models/login-response.model';
 import { selectAuthDetails } from './store/auth/auth.selectors';
+import { CartService } from './services/cart.service';
+import { Cart } from './models/cart.model';
+import { User } from './models/user.model';
+import { updateCart } from './store/cart/cart.actions';
 
 @Component({
   selector: 'app-root',
@@ -17,25 +21,11 @@ import { selectAuthDetails } from './store/auth/auth.selectors';
 export class AppComponent {
   showAdditionalInfo = false;
 
-  constructor(private toastr: ToastrService,private authService:AuthService,private store:Store<{auth:LoginResponse}>) {
-    // const x = signal<number>(5);
-    // console.log("x="+x());
-    // const y = signal(3);
-    // console.log("y="+y());
-    // const z = computed(()=>{
-    //   return x() + y()
-    // });
-    // console.log("z="+z());
-    // x.set(10);
-    // console.log("x="+x());
-    // console.log("z="+z());
-    // let arr = [12,23,34,45];
-    // let n = arr.with(2,24);
-    // console.log(arr);
-    // console.log(n)
+  constructor(private toastr: ToastrService,private authService:AuthService,private store:Store<{auth:LoginResponse}>,private cartService:CartService,private cartStore:Store<{cart:Cart}>) {
+    
   }
   title = 'ecommerce-web-app';
-
+  user?: User | null;
   showInfo() {
     this.showAdditionalInfo = true;
     setTimeout(() => {
@@ -55,11 +45,22 @@ export class AppComponent {
         next:(details)=>{
             console.log("saving loginData from app component to local storage: ",details);
             this.authService.saveLoginDataToLocalStorage(details);
+            this.user = details.user;
         },
         error:()=>{
-            console.log('in error block in ngoninit in app component');
+            console.log('in error block in ngoninit in app component-  while getting user details');
         }
       });
+      if(this.user){
+        console.log("printing user data in app component: ",this.user);
+        this.cartService.getCartOfUser(this.user.userId).subscribe({
+          next:cartData=>{
+              this.cartStore.dispatch(updateCart({cart:cartData}));
+          }
+        })
+      }
+     
+
   }
 
   showToastr() {

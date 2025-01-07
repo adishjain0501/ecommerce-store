@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment";
-import { Cart } from "../models/cart.model";
+import { Cart, CartItem } from "../models/cart.model";
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +26,13 @@ export class CartService {
 
     removeItemFromCart(userId:string,itemId:number){
         return this.httpClient.delete(`${environment.baseUrl}/carts/${userId}/items/${itemId}`);
+    }
+
+    getTotalPriceOfCart(items:CartItem[]){
+        let totalPrice = 0;
+        items.forEach(item=>{
+            totalPrice += item.totalPrice;
+        });
+        return totalPrice;
     }
 }

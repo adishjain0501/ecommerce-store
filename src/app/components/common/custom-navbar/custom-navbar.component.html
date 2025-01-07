@@ -65,7 +65,7 @@
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="#!" [routerLink]="['/cart']">Cart (34)</a>
+          <a class="nav-link" href="#!" [routerLink]="['/cart']">Cart <span *ngIf="cart && cart.cartId">({{cart.items.length}})</span></a>
         </li>
       </ul>
 

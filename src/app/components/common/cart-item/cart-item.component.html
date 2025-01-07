@@ -1,0 +1,31 @@
+<div class="row border-bottom my-3 py-2 shadow-sm" *ngIf="cartItem">
+    <div class="col-lg-2">
+        <div class="image-container text-center py-2">
+            <img class="w-15" [src]="productService.getProductImageUrl(cartItem.product.productId)" alt="">
+        </div>
+        
+    </div>
+    <div class="col-lg-8 d-flex align-items-center">
+        <div class="w-100">
+            <p class="fw-bold fs-5">{{cartItem.product.title}}</p>
+        <div class="row">
+            <div class="col-md-4">
+                <p>Price : <span class="text-muted text-decoration-line-through">{{cartItem.product.price | currency:'INR':'symbol'}}</span><span class="fw-bold ms-2 text-success">{{cartItem.product.discountedPrice | currency:'INR':'symbol'}}</span></p>
+            </div>
+            <div class="col-md-4">
+                <p>Quantity : <span class="fw-bold">{{cartItem.quantity}}</span></p>
+            </div>
+            <div class="col-md-4">
+                <p>Total Price : <span class="fw-bold text-success">{{cartItem.totalPrice | currency:'INR':'symbol'}}</span></p>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="col-lg-2 d-flex align-items-center justify-content-center">
+        <div class="d-flex w-100 border justify-content-around">
+            <button type="button" class="btn btn-primary" (click)="increaseQuantity(cartItem)"><i-tabler name="plus"></i-tabler></button>
+            <button type="button" class="btn btn-info" (click)="decreaseQuantity(cartItem)"><i-tabler name="minus"></i-tabler></button>
+            <button type="button" class="btn btn-danger" (click)="deleteItem(cartItem)"><i-tabler name="trash"></i-tabler></button>
+        </div>
+    </div>
+</div>

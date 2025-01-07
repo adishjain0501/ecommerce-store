@@ -9,6 +9,8 @@ import { User } from '../../../models/user.model';
 import { LoginResponse } from '../../../models/login-response.model';
 import { Store } from '@ngrx/store';
 import { selectAuthDetails } from '../../../store/auth/auth.selectors';
+import { Cart } from '../../../models/cart.model';
+import { updateCart } from '../../../store/cart/cart.actions';
 
 @Component({
   selector: 'app-single-product-card',
@@ -21,7 +23,7 @@ export class SingleProductCardComponent {
   user:User | null | undefined;
   @Input() product?: Product;
 
-    constructor(public productService:ProductService,private cartService:CartService,private toastrService:ToastrService,private store:Store<{auth:LoginResponse}>){
+    constructor(public productService:ProductService,private cartService:CartService,private toastrService:ToastrService,private store:Store<{auth:LoginResponse}>,private cartStore:Store<{cart:Cart}>){
 
        this.store.select(selectAuthDetails).subscribe({
                   next:(details)=>{
@@ -46,6 +48,7 @@ export class SingleProductCardComponent {
               next:cart=>{
                   console.log(cart);
                   this.toastrService.success("Item is added to cart !!");
+                  this.cartStore.dispatch(updateCart({cart:cart}));
               },
               error:(error)=>{
                   console.log(error);

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { IconBuildingStore, IconCategory, IconCirclePlus, IconHomeCheck, IconLogout2, IconSquareRoundedPlus, IconTruckDelivery, IconUserCheck, IconUsersGroup } from 'angular-tabler-icons/icons';
+import { IconBuildingStore, IconCategory, IconCirclePlus, IconHomeCheck, IconLogout2, IconMinus, IconPlus, IconSquareRoundedPlus, IconTrash, IconTruckDelivery, IconUserCheck, IconUsersGroup } from 'angular-tabler-icons/icons';
 import { TablerIconsModule } from 'angular-tabler-icons';
 
 const icons = {
@@ -11,7 +11,10 @@ const icons = {
   IconUsersGroup,
   IconTruckDelivery,
   IconLogout2,
-  IconUserCheck
+  IconUserCheck,
+  IconPlus,
+  IconMinus,
+  IconTrash
 };
 
 

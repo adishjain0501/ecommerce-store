@@ -31,7 +31,8 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./components/pages/cart/cart.component').then(
         (mod) => mod.CartComponent,
-      )
+      ),
+      title: 'Cart | Electronic Store',
   },
   {
     path: 'store/:categoryId/:categoryTitle',

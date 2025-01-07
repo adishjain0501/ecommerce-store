@@ -13,6 +13,7 @@ import { GlobalErrorHandler } from './error-handler/global-error-handler';
 import { JwtInterceptor } from './services/jwt-interceptor';
 import { categoryReducer } from './store/category/category.reducers';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { cartReducer } from './store/cart/cart.reducers';
 
 
 console.log('app config');
@@ -42,6 +43,7 @@ export const appConfig: ApplicationConfig = {
     provideState({
       name:'auth',reducer:authReducer
     }),
-    provideState({ name: 'cat', reducer: categoryReducer })
+    provideState({ name: 'cat', reducer: categoryReducer }),
+    provideState({ name: 'cart', reducer: cartReducer })
 ],
 };

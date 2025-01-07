@@ -6,7 +6,9 @@ export interface Cart{
     createdAt: Date;
     items:CartItem[];
     user:User;
-}
+};
+
+
 
 export interface CartItem{
     cartItemId:number;
@@ -14,3 +16,4 @@ export interface CartItem{
     quantity:number;
     totalPrice:number;
 }
+

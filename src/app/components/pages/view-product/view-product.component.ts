@@ -11,6 +11,8 @@ import { Store } from '@ngrx/store';
 import { selectAuthDetails } from '../../../store/auth/auth.selectors';
 import { CartService } from '../../../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { updateCart } from '../../../store/cart/cart.actions';
+import { Cart } from '../../../models/cart.model';
 
 @Component({
   selector: 'app-view-product',
@@ -23,7 +25,7 @@ export class ViewProductComponent {
     productId?:string;
     product?:Product;
     user?:User|null;
-    constructor(private activatedRoute:ActivatedRoute,public productService:ProductService,private titleService:Title,private store:Store<{auth:LoginResponse}>,private cartService:CartService,private toastrService:ToastrService){
+    constructor(private activatedRoute:ActivatedRoute,public productService:ProductService,private titleService:Title,private store:Store<{auth:LoginResponse}>,private cartService:CartService,private toastrService:ToastrService,private cartStore:Store<{cart:Cart}>){
         this.activatedRoute.params.subscribe(param=>{
             this.productId = param['productId'];
             console.log("ViewProductComponent constructor: ",this.productId);
@@ -63,6 +65,7 @@ export class ViewProductComponent {
                 next:cart=>{
                     console.log(cart);
                     this.toastrService.success("Item is added to cart !!");
+                    this.cartStore.dispatch(updateCart({cart:cart}));
                 },
                 error:(error)=>{
                     console.log(error);
