@@ -57,6 +57,12 @@ export class AdminDashboardComponent {
       link:'/admin/orders',
       icon:'truck-delivery',
       cssClass:''
+    },
+    {
+      title:'My Orders',
+      link:'/my/orders',
+      icon:'truck-return',
+      cssClass:''
     }
   ];
 

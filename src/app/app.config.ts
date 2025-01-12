@@ -29,7 +29,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideAnimations(),
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
-    provideToastr({ positionClass: 'toast-top-center', progressBar: true }),
+    provideToastr({ positionClass: 'toast-top-right', progressBar: true }),
     importProvidersFrom(SweetAlert2Module.forRoot()),
     provideHttpClient(withInterceptorsFromDi(), withFetch()), //any interceptors provided in your application will automatically be used with HttpClients
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

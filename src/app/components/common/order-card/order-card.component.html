@@ -1,0 +1,31 @@
+<div *ngIf="order">
+<div class="row">
+    <div class="col-md-8">
+        <p>ORDER ID: <span class="fw-bold">{{order.orderId}}</span></p> 
+    </div>
+    <div class="col-md-4">
+        <p>ORDERED DATE: <span class="fw-bold">{{order.orderedDate | date:'dd-MM-yyyy'}}</span></p> 
+    </div>
+</div>   
+<div class="row">
+    <div class="col-md-8">
+        <p>ORDER STATUS: <span class="fw-bold badge rounded-pill" [ngClass]="{'text-bg-success': order.orderStatus===orderStatus.DELIVERED,
+        'text-bg-primary': order.orderStatus!==orderStatus.DELIVERED  
+        }">{{order.orderStatus}}</span></p> 
+    </div>
+    <div class="col-md-4">
+        <p>PAYMENT STATUS: <span class="fw-bold badge rounded-pill" [ngClass]="{'text-bg-danger':order.paymentStatus===paymentStatus.NOTPAID,
+            'text-bg-success':order.paymentStatus===paymentStatus.PAID
+        }">{{order.paymentStatus}}</span></p> 
+    </div>
+</div>   
+<div class="row">
+    <div class="col-md-8">
+        <p>USERNAME: <span class="fw-bold">{{order.user.name}}</span></p> 
+    </div>
+    <div class="col-md-4">
+        <p>BILLING NAME: <span class="fw-bold">{{order.billingName | uppercase}}</span></p> 
+    </div>
+</div> 
+    
+</div>

@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="card" *ngIf="orderResponse">
+            <div class="card-body">
+                <h3>All Orders ({{orderResponse.content.length}})</h3>
+                <div class="list-group" infiniteScroll [infiniteScrollDistance]="2"  [infiniteScrollThrottle]="200" (scrolled)="onScroll($event)">
+                    <div (click)="openModal(order)" *ngFor="let order of orderResponse.content" class="list-group-item shadow-sm mt-4 list-group-item-action" style="cursor:pointer">
+                        <app-order-card [order]="order" ></app-order-card>
+                                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-order-view-modal></app-order-view-modal>

@@ -20,7 +20,7 @@ export class CartService {
         return this.httpClient.post<Cart>(`${environment.baseUrl}/carts/${userId}`,data);
     }
     //empty cart
-    emptyCart(userId:string){
+    clearCart(userId:string){
         return this.httpClient.delete(`${environment.baseUrl}/carts/${userId}`);
     }
 

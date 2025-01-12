@@ -100,6 +100,15 @@ export const routes: Routes = [
     canActivate: [normalUserGuard]
   },
   {
+    path: 'my/orders',
+    loadComponent: () =>
+      import('./components/pages/my-orders/my-orders.component').then(
+        (mod) =>  mod.MyOrdersComponent
+      ),
+      title: 'My Orders',
+      canActivate: [normalUserGuard]
+  },
+  {
     path: 'admin',
     loadComponent: () =>
       import('./components/admin/admin-dashboard/admin-dashboard.component').then(
@@ -172,6 +181,7 @@ export const routes: Routes = [
           ),
           title: 'All Users'
       },
+     
       {
         path: '',
         redirectTo: 'home', // slash indicates absolute path starting from the root
