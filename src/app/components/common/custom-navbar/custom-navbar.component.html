@@ -85,6 +85,9 @@
           <a class="nav-link" *ngIf="isAdmin | async" style="cursor: pointer;" [routerLink]="['/admin/home']"> Admin Dashboard</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" style="cursor: pointer;" [routerLink]="['/my/orders']"> My Orders</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" style="cursor: pointer;" [routerLink]="['/profile']"> {{loginData.user?.name}}</a>
         </li>
         <li class="nav-item">

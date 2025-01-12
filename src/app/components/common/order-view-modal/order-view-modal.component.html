@@ -114,7 +114,7 @@
     </div>
     <div class="modal-footer">
         <div class="container text-center">
-            <button type="button" class="btn btn-outline-danger" (click)="updateStateMethod()">{{updateState ? 'View Detail':'Edit Order'}}</button>
+            <button *ngIf="isAdmin | async" type="button" class="btn btn-outline-danger" (click)="updateStateMethod()">{{updateState ? 'View Detail':'Edit Order'}}</button>
            
         <button type="button" class="btn btn-outline-dark ms-2" (click)="this.updateState = false;modal.close('Close clicked')">Close</button>
         </div>

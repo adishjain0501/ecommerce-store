@@ -2,19 +2,20 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HelperService } from '../../../services/helper.service';
 import { Order } from '../../../models/order.model';
-import { CurrencyPipe, DatePipe, KeyValuePipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, DatePipe, KeyValuePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { OrderRequest, OrderStatus, PaymentStatus } from '../../../models/order.request.model';
 import { ProductService } from '../../../services/product.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { OrderService } from '../../../services/order.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
   selector: 'app-order-view-modal',
   standalone: true,
-  imports: [NgIf,DatePipe,NgClass,NgFor,CurrencyPipe,KeyValuePipe,FormsModule],
+  imports: [NgIf,DatePipe,NgClass,NgFor,CurrencyPipe,KeyValuePipe,FormsModule,AsyncPipe],
   templateUrl: './order-view-modal.component.html',
   styleUrl: './order-view-modal.component.scss'
 })
@@ -27,9 +28,9 @@ export class OrderViewModalComponent implements OnInit,OnDestroy{
   // public orderKeys = Object.keys(OrderStatus) as Array<keyof typeof OrderStatus>; // Extract keys for iteration
   public modalSubscription?:Subscription;
   updateState?:boolean = false;
-
-  constructor(private modalService:NgbModal,private helperService:HelperService,public productService:ProductService,private orderService:OrderService,private toastrService:ToastrService){
-     
+  isAdmin:Observable<boolean>;
+  constructor(private modalService:NgbModal,private helperService:HelperService,public productService:ProductService,private orderService:OrderService,private toastrService:ToastrService,private authService:AuthService){
+    this.isAdmin = this.authService.checkLoginAndAdminUser();
   }
 
   ngOnInit(): void {
