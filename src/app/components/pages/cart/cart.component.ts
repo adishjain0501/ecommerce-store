@@ -15,6 +15,7 @@ import { OrderRequest, OrderStatus, PaymentStatus } from '../../../models/order.
 import { FormsModule } from '@angular/forms';
 import { OrderService } from '../../../services/order.service';
 import { Subscription } from 'rxjs';
+import { PaymentService } from '../../../services/payment.service';
 
 @Component({
   selector: 'app-cart',
@@ -37,7 +38,7 @@ export class CartComponent implements OnDestroy {
       cartId: ''
     };
     private userSubscription?:Subscription;
-    constructor(private store:Store<{auth:LoginResponse}>,public cartService:CartService,private toastrService:ToastrService,private router:Router,private cartStore:Store<{cart:Cart}>,private modalService:NgbModal,private orderService:OrderService){
+    constructor(private store:Store<{auth:LoginResponse}>,public cartService:CartService,private toastrService:ToastrService,private router:Router,private cartStore:Store<{cart:Cart}>,private modalService:NgbModal,private orderService:OrderService,private paymentService:PaymentService){
       this.userSubscription = this.store.select(selectAuthDetails).subscribe({
             next:(details)=>{
                 console.log("ViewProductComponent constructor: ",details);
@@ -209,6 +210,43 @@ export class CartComponent implements OnDestroy {
             });
             this.modalService.dismissAll();
             this.loadCart();
+            // initiate payment
+            this.paymentService.initiatePayment(data.orderId).subscribe({
+                next:(res:any)=>{
+                    console.log(res);
+                    const subscription = this.paymentService.payWithRazorpay({
+                      amount: data.orderAmount,
+                      razorpayOrderId: res.razorpayOrderId,
+                      userName: data.user.name,
+                      email: data.user.email,
+                      contact: "+919745345434"
+                    }).subscribe({
+                      next:res1=>{
+                        //success
+                        console.log("from cart component success payment response: ",res1);
+                        subscription.unsubscribe();
+                        // server verification call
+                        this.paymentService.captureAndVerifyPayment(data.orderId,res1).subscribe({
+                          next:(responseReceived:any)=>{
+                              console.log(responseReceived);
+                              this.toastrService.success(responseReceived.message);
+                          },
+                          error:error=>{
+                              console.error("payment verification error: ",error);
+                              this.toastrService.error("Error in Capturing Payment and Payment Verification !!");
+                          }
+                        })
+
+                      },
+                      error:error=>{
+                          // error
+                          console.log("from cart component error payment response: ",error);
+                          this.toastrService.error("error in doing payment, you can retry from orders section !!");
+                          subscription.unsubscribe();
+                      }
+                    })
+                }
+            })
         }
       })
 

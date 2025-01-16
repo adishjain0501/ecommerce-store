@@ -15,7 +15,8 @@
     </div>
     <div class="col-md-4">
         <p>PAYMENT STATUS: <span class="fw-bold badge rounded-pill" [ngClass]="{'text-bg-danger':order.paymentStatus===paymentStatus.NOTPAID,
-            'text-bg-success':order.paymentStatus===paymentStatus.PAID
+            'text-bg-success':order.paymentStatus===paymentStatus.PAID,
+            'text-bg-warning':order.paymentStatus !==paymentStatus.PAID && order.paymentStatus !==paymentStatus.NOTPAID
         }">{{order.paymentStatus}}</span></p> 
     </div>
 </div>   
