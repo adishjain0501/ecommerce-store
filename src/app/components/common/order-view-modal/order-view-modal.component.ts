@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { OrderService } from '../../../services/order.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../services/auth.service';
+import { PaymentService } from '../../../services/payment.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -29,7 +31,7 @@ export class OrderViewModalComponent implements OnInit,OnDestroy{
   public modalSubscription?:Subscription;
   updateState?:boolean = false;
   isAdmin:Observable<boolean>;
-  constructor(private modalService:NgbModal,private helperService:HelperService,public productService:ProductService,private orderService:OrderService,private toastrService:ToastrService,private authService:AuthService){
+  constructor(private modalService:NgbModal,private helperService:HelperService,public productService:ProductService,private orderService:OrderService,private toastrService:ToastrService,private authService:AuthService,private paymentService:PaymentService,private router:Router){
     this.isAdmin = this.authService.checkLoginAndAdminUser();
   }
 
@@ -83,6 +85,51 @@ export class OrderViewModalComponent implements OnInit,OnDestroy{
           }
         })
       }
-      
+  }
+
+  payForOrder(order:Order | undefined){
+    if(order){
+        // initiate payment
+this.paymentService.initiatePayment(order.orderId).subscribe({
+  next:(res:any)=>{
+      console.log(res);
+      const subscription = this.paymentService.payWithRazorpay({
+        amount: order.orderAmount,
+        razorpayOrderId: res.razorpayOrderId,
+        userName: order.user.name,
+        email: order.user.email,
+        contact: "+919745345434"
+      }).subscribe({
+        next:res1=>{
+          //success
+          console.log("from cart component success payment response: ",res1);
+          subscription.unsubscribe();
+          // server verification call
+          this.paymentService.captureAndVerifyPayment(order.orderId,res1).subscribe({
+            next:(responseReceived:any)=>{
+                console.log(responseReceived);
+                this.toastrService.success(responseReceived.message);
+                this.modalService.dismissAll();
+                this.router.navigate(["/store"]);
+            },
+            error:error=>{
+                console.error("payment verification error: ",error);
+                this.toastrService.error("Error in Capturing Payment and Payment Verification !!");
+            }
+          })
+
+        },
+        error:error=>{
+            // error
+            console.log("from cart component error payment response: ",error);
+            this.toastrService.error("error in doing payment, you can retry from orders section !!");
+            subscription.unsubscribe();
+        }
+      })
+  }
+})
+}
+    
+
   }
 }

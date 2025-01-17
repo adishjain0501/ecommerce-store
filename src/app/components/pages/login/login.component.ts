@@ -1,18 +1,19 @@
 import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../services/auth.service';
 import { LoginResponse } from '../../../models/login-response.model';
 import { Store } from '@ngrx/store';
 import { setLoginData } from '../../../store/auth/auth.actions';
+import { SocialAuthService, SocialLoginModule,GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   standalone: true,
-  imports: [RouterModule,FormsModule,JsonPipe],
+  imports: [RouterModule,FormsModule,JsonPipe,SocialLoginModule,GoogleSigninButtonModule],
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
@@ -23,7 +24,8 @@ export class LoginComponent {
   }
 
   constructor(private toastrService:ToastrService,private authService:AuthService, 
-    private store:Store<{auth:LoginResponse}>,private router:Router
+    private store:Store<{auth:LoginResponse}>,private router:Router,
+    private socialAuthService: SocialAuthService
   ){
     
   }

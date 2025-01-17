@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CustomNavbarComponent } from './components/common/custom-navbar/custom-navbar.component';
 import { AuthService } from './services/auth.service';
@@ -10,19 +10,40 @@ import { CartService } from './services/cart.service';
 import { Cart } from './models/cart.model';
 import { User } from './models/user.model';
 import { updateCart } from './store/cart/cart.actions';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { setLoginData } from './store/auth/auth.actions';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CustomNavbarComponent],
+  imports: [RouterOutlet, CustomNavbarComponent,NgxUiLoaderModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
   showAdditionalInfo = false;
 
-  constructor(private toastr: ToastrService,private authService:AuthService,private store:Store<{auth:LoginResponse}>,private cartService:CartService,private cartStore:Store<{cart:Cart}>) {
-    
+  constructor(private toastr: ToastrService,private authService:AuthService,private store:Store<{auth:LoginResponse}>,private cartService:CartService,private cartStore:Store<{cart:Cart}>,private socialAuthService:SocialAuthService,private router:Router) {
+      this.socialAuthService.authState.subscribe({
+          next:(user)=>{
+              console.log("user: ",user);
+              this.authService.signInWithGoogle(user).subscribe({
+                  next:(data:LoginResponse)=>{
+                      console.log(data);
+                      this.store.dispatch(setLoginData(data));
+                      this.router.navigate(['/user']);
+                  },
+                  error:error=>{
+                    console.error(error);
+                    this.toastr.error("Error in login from backend !!");
+                  }
+              })
+          },
+          error:error=>{
+            console.log(error);
+          }
+      })
   }
   title = 'ecommerce-web-app';
   user?: User | null;

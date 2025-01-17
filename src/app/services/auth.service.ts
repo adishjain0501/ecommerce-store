@@ -7,10 +7,13 @@ import { map, Observable, tap } from 'rxjs';
 import { selectAuthDetails } from '../store/auth/auth.selectors';
 import { ToastrService } from 'ngx-toastr';
 import { isPlatformBrowser } from '@angular/common';
+import { SocialUser } from '@abacritt/angularx-social-login';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+ 
   authDetails$!: Observable<LoginResponse>;
   constructor(
     private httpClient:HttpClient,
@@ -21,6 +24,10 @@ export class AuthService {
 
   generateToken(loginData:{email:string,password:string}){
       return this.httpClient.post<LoginResponse>(`${environment.baseUrl}/auth/login`,loginData);
+  }
+
+  signInWithGoogle(user: SocialUser) {
+      return this.httpClient.post<LoginResponse>(`${environment.baseUrl}/auth/google`,user);
   }
 
   checkLoginAndNormalUser():Observable<boolean>{

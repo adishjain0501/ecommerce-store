@@ -1,17 +1,8 @@
-<app-custom-navbar></app-custom-navbar>
-<!-- <div class="container-fluid"> -->
-  <!-- Hello
-<button type="button" (click)="showInfo()">Show additional info</button>
-  
-@defer(when showAdditionalInfo){
-  <h1>This is additional Info section</h1>
-} @placeholder{
-  <label>Dynamic content will appear here</label>
-} @loading (after 1000ms; minimum 1s){
-  Loading...
-} @error{
-  Failed to load the dynamic content
-} -->
-
+<ngx-ui-loader></ngx-ui-loader>
+<div ngxUiLoaderBlurred [blur]="10">
+  <!-- This page content will be blurred/frosted when foreground loader is showed -->
+  <app-custom-navbar></app-custom-navbar>
   <router-outlet></router-outlet>
-<!-- </div> -->
+</div>
+
+

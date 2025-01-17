@@ -1,1 +1,63 @@
-<p>home works!</p>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3>Sale Report</h3>
+                    <div>
+                        <canvas baseChart [type]="chartType"
+                        [data]="chartData"
+                        [options]="chartOptions" [legend]="lineChartLegend" style="width:100%" 
+                        (chartClick)="chartClick($event)"></canvas>
+                <!-- <button class="btn btn-primary" (click)="dynamicChange($event)">Dynamic Click</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3>User Report</h3>
+            <div>
+                <canvas baseChart [type]="'bar'"
+                [data]="barChartData"
+                [options]="barChartOptions" [legend]="barChartLegend" style="width:100%" 
+                ></canvas>
+                <!-- <button class="btn btn-primary" (click)="dynamicChange($event)">Dynamic Click</button> -->
+            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3>Sale Report</h3>
+                    <div>
+                        <canvas baseChart [datasets]="scatterChartDatasets"
+                        [options]="scatterChartOptions"
+                        [type]="'scatter'"></canvas>
+                <!-- <button class="btn btn-primary" (click)="dynamicChange($event)">Dynamic Click</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3>User Report</h3>
+            <div>
+                <canvas baseChart  [datasets]="radarChartDatasets"
+                [options]="radarChartOptions"
+                [labels]="radarChartLabels"
+                [type]="'radar'" style="width:100%" 
+                ></canvas>
+                <!-- <button class="btn btn-primary" (click)="dynamicChange($event)">Dynamic Click</button> -->
+            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
