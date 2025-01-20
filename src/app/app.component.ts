@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CustomNavbarComponent } from './components/common/custom-navbar/custom-navbar.component';
 import { AuthService } from './services/auth.service';
@@ -11,8 +11,9 @@ import { Cart } from './models/cart.model';
 import { User } from './models/user.model';
 import { updateCart } from './store/cart/cart.actions';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
-import { setLoginData } from './store/auth/auth.actions';
+import { removeLoginData, setLoginData } from './store/auth/auth.actions';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-root',
@@ -20,11 +21,13 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
   imports: [RouterOutlet, CustomNavbarComponent,NgxUiLoaderModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  providers: [{ provide: JWT_OPTIONS, useValue: {} },JwtHelperService] 
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   showAdditionalInfo = false;
-
-  constructor(private toastr: ToastrService,private authService:AuthService,private store:Store<{auth:LoginResponse}>,private cartService:CartService,private cartStore:Store<{cart:Cart}>,private socialAuthService:SocialAuthService,private router:Router) {
+  token?:string;
+  constructor(private toastr: ToastrService,private authService:AuthService,private store:Store<{auth:LoginResponse}>,private cartService:CartService,private cartStore:Store<{cart:Cart}>,private socialAuthService:SocialAuthService,private router:Router,private jwtHelperService:JwtHelperService) {
+      
       this.socialAuthService.authState.subscribe({
           next:(user)=>{
               console.log("user: ",user);
@@ -56,8 +59,19 @@ export class AppComponent {
   }
 
   ngOnInit(){
-    console.log('in app component listening to store change');
+      console.log('in app component listening to store change');
       this.updateLocalStorageWithLoginResponse();
+      
+      this.listenToRouterEvents();
+  }
+
+  listenToRouterEvents() {
+    this.router.events.subscribe((val:any)=>{
+      if(val instanceof NavigationEnd){
+          console.log("router changed...");
+          this.authService.isJwtTokenExpired(this.token);
+      }
+  })
   }
 
   // reading ngrx store value using selector and updating to local storage whenever the login data is updated in the ngrx store 
@@ -67,6 +81,8 @@ export class AppComponent {
             console.log("saving loginData from app component to local storage: ",details);
             this.authService.saveLoginDataToLocalStorage(details);
             this.user = details.user;
+            this.token = details.jwtToken;
+            
         },
         error:()=>{
             console.log('in error block in ngoninit in app component-  while getting user details');
@@ -87,4 +103,6 @@ export class AppComponent {
   showToastr() {
     this.toastr.success('Hello world!', 'Toastr fun!');
   }
+
+  
 }

@@ -17,6 +17,7 @@ import { cartReducer } from './store/cart/cart.reducers';
 import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { NgxUiLoaderConfig, NgxUiLoaderHttpModule, NgxUiLoaderModule, NgxUiLoaderRouterModule } from 'ngx-ui-loader';
+import { JwtModule } from '@auth0/angular-jwt';
 
 
 console.log('app config');
@@ -79,15 +80,20 @@ export const appConfig: ApplicationConfig = {
       } as SocialAuthServiceConfig,
     },
     provideCharts(withDefaultRegisterables()), // Registers default Chart.js components globally
-    importProvidersFrom(NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    importProvidersFrom(
+      NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     // Import NgxUiLoaderHttpModule with optional configuration
     NgxUiLoaderHttpModule.forRoot({
       // showForeground: true, // Shows the foreground loader for HTTP requests
       exclude: ['/assets/', '/api/health-check'], // Exclude specific URLs from showing the loader
-    }),NgxUiLoaderRouterModule.forRoot({
+    }),
+    NgxUiLoaderRouterModule.forRoot({
       showForeground:true,
-      
-    }))
+    }),
+    JwtModule
+    
+  ),
+
   ]
 };
 

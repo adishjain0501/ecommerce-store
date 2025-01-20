@@ -8,6 +8,10 @@ import { selectAuthDetails } from '../store/auth/auth.selectors';
 import { ToastrService } from 'ngx-toastr';
 import { isPlatformBrowser } from '@angular/common';
 import { SocialUser } from '@abacritt/angularx-social-login';
+import { removeLoginData } from '../store/auth/auth.actions';
+import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +21,8 @@ export class AuthService {
   authDetails$!: Observable<LoginResponse>;
   constructor(
     private httpClient:HttpClient,
-    private store:Store<{auth:LoginResponse}>,
-    private toastr:ToastrService,
+    private store:Store<{auth:LoginResponse}>,private modalService:NgbModal,
+    private toastr:ToastrService,private router:Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
@@ -107,5 +111,26 @@ return this.authDetails$.pipe(
     isLoggedIn: false
   }
  }
+
+ public isJwtTokenExpired(token:any){
+  const jwtHelperService = new JwtHelperService();
+  console.log("checking token expiration...token value: ",token);
+  if(token){
+    console.log("token found...");
+    if(jwtHelperService.isTokenExpired(token)){
+      console.log("token has expired...");
+      this.toastr.error("Session expired !!");
+      this.store.dispatch(removeLoginData());
+      this.modalService.dismissAll();
+      this.router.navigate(['/login']);
+      return true;
+    }
+    else{
+      console.log("Token still valid...");
+      return false;
+    }
+  }
+  return false;
+}
 
 }

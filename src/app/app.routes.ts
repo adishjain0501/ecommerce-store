@@ -4,14 +4,6 @@ import { adminUserGuard } from './components/guards/admin-user.guard';
 
 export const routes: Routes = [
   {
-    path: 'home',
-    loadComponent: () =>
-      import('./components/pages/home/home.component').then(
-        (mod) => mod.HomeComponent,
-      ),
-    title: 'Home: Electronic Store',
-  },
-  {
     path: 'store',
     loadComponent: () =>
       import('./components/pages/store/store.component').then(
@@ -191,8 +183,8 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/home', // slash indicates absolute path starting from the root
+    redirectTo: '/store', // slash indicates absolute path starting from the root
     pathMatch: 'full',
   },
-  { path: '**', redirectTo: 'home' },
+  { path: '**', redirectTo: 'store' },
 ];
