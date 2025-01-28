@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    baseUrl: 'http://localhost:9091',
+    baseUrl: "https://graceful-heart-production.up.railway.app",
     ROLE_NORMAL_ID: 'awgfasfwsdqtgasfwqgsdtg',
     ROLE_NORMAL_NAME: 'ROLE_NORMAL',
     ROLE_ADMIN_ID: 'wetrsdfwetwfasfwdf',
