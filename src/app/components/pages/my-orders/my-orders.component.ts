@@ -11,7 +11,7 @@ import { OrderHubComponent } from '../../common/order-hub/order-hub.component';
 @Component({
   selector: 'app-my-orders',
   standalone: true,
-  imports: [OrderCardComponent,OrderHubComponent],
+  imports: [OrderHubComponent],
   templateUrl: './my-orders.component.html',
   styleUrl: './my-orders.component.scss'
 })

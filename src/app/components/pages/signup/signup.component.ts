@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   standalone: true,
-  imports: [FormsModule,JsonPipe,NgIf,PasswordValidatorDirective,RouterModule],
+  imports: [FormsModule,NgIf,PasswordValidatorDirective,RouterModule],
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent {

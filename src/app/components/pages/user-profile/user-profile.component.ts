@@ -14,7 +14,7 @@ import { setLoginData } from '../../../store/auth/auth.actions';
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [UserViewComponent,NgIf,FormsModule,UpperCasePipe,JsonPipe],
+  imports: [UserViewComponent,NgIf,FormsModule,UpperCasePipe],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })

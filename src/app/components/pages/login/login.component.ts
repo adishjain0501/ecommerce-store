@@ -13,7 +13,7 @@ import { SocialAuthService, SocialLoginModule,GoogleSigninButtonModule } from '@
   selector: 'app-login',
   templateUrl: './login.component.html',
   standalone: true,
-  imports: [RouterModule,FormsModule,JsonPipe,SocialLoginModule,GoogleSigninButtonModule],
+  imports: [RouterModule,FormsModule,SocialLoginModule,GoogleSigninButtonModule],
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {

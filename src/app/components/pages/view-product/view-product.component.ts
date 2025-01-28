@@ -17,7 +17,7 @@ import { Cart } from '../../../models/cart.model';
 @Component({
   selector: 'app-view-product',
   standalone: true,
-  imports: [JsonPipe,NgIf,NgClass,CurrencyPipe,RouterLink],
+  imports: [NgIf,NgClass,CurrencyPipe,RouterLink],
   templateUrl: './view-product.component.html',
   styleUrl: './view-product.component.scss'
 })

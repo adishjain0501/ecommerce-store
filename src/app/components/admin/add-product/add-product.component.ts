@@ -17,7 +17,7 @@ import { ImageData } from '../../../models/image-data.model';
 @Component({
   selector: 'app-add-product',
   standalone: true,
-  imports: [IconsModule,NgFor,FormsModule,JsonPipe,QuillModule,NgIf],
+  imports: [IconsModule,NgFor,FormsModule,QuillModule,NgIf],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.scss'
 })

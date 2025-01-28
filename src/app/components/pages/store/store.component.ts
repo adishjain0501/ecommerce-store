@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-store',
   standalone: true,
-  imports: [InfiniteScrollDirective,NgFor,NgIf,CurrencyPipe,NgClass,SingleProductCardComponent,CategoriesViewComponent,FormsModule],
+  imports: [InfiniteScrollDirective,NgFor,NgIf,NgClass,SingleProductCardComponent,CategoriesViewComponent,FormsModule],
   templateUrl: './store.component.html',
   styleUrl: './store.component.scss'
 })

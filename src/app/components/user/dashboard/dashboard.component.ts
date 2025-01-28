@@ -10,7 +10,7 @@ import { User } from '../../../models/user.model';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [NgIf,AsyncPipe],
+  imports: [AsyncPipe],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })

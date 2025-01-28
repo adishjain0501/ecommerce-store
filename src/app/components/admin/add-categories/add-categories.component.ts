@@ -9,7 +9,7 @@ import { CategoryService } from '../../../services/category.service';
 @Component({
   selector: 'app-add-categories',
   standalone: true,
-  imports: [IconsModule,FormsModule,JsonPipe],
+  imports: [IconsModule,FormsModule],
   templateUrl: './add-categories.component.html',
   styleUrl: './add-categories.component.scss'
 })

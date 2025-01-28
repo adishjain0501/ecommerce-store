@@ -13,7 +13,7 @@ import { OrderHubComponent } from '../../common/order-hub/order-hub.component';
 @Component({
   selector: 'app-view-orders',
   standalone: true,
-  imports: [NgIf,NgFor,DatePipe,NgClass,InfiniteScrollDirective,OrderCardComponent,OrderHubComponent],
+  imports: [OrderHubComponent],
   templateUrl: './view-orders.component.html',
   styleUrl: './view-orders.component.scss'
 })

@@ -16,7 +16,7 @@ import { ImageData } from '../../../models/image-data.model';
 @Component({
   selector: 'app-view-products',
   standalone: true,
-  imports: [NgFor,NgIf,NgClass,NgbPagination,SweetAlert2Module,FormsModule,QuillModule,JsonPipe,CurrencyPipe],
+  imports: [NgFor,NgIf,NgbPagination,SweetAlert2Module,FormsModule,QuillModule,CurrencyPipe],
   templateUrl: './view-products.component.html',
   styleUrl: './view-products.component.scss',
   providers: [SweetAlert2LoaderService]
