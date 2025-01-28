@@ -39,7 +39,12 @@
               "src/assets",
               "src/sw-register.js",
               "src/sw.js",
-              "src/offline.html"
+              "src/offline.html",
+              {
+                "glob": "_redirects",
+                "input": "src",
+                "output": "/"
+              }
             ],
             "styles": [
               "node_modules/ngx-toastr/toastr.css",
